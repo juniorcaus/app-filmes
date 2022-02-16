@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-function Movies() {
+function Movies(){
     return(
         <View>
-            <Text>TELA MOVIES</Text>
+            <Text>TELA DE MOVIES</Text>
         </View>
     )
 }
