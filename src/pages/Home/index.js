@@ -10,6 +10,8 @@ import SliderItem from '../../components/SliderItem';
 import api, { key }  from '../../services/api';
 import { getListMovies, randomBanner } from '../../utils/movie';
 
+import { useNavigation } from '@react-navigation/native'
+
 function Home(){
 
     const [nowMovies, setNowMovies ] = useState([]);
@@ -19,6 +21,7 @@ function Home(){
 
     const [loading, setLoading] = useState(true);
 
+    const navigation = useNavigation();
 
     useEffect( () =>{
         let isActive = true;
@@ -83,7 +86,7 @@ function Home(){
 
 
     function navigateDetailsPage(item){
-        console.log(item.id)
+        navigation.navigate('Detail', { id: item.id })
     }
 
 
@@ -122,7 +125,7 @@ function Home(){
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
                     data={nowMovies}
-                    renderItem={ ({ item }) =>  <SliderItem data={item} /> }
+                    renderItem={ ({ item }) =>  <SliderItem data={item} navigatePage={ () => navigateDetailsPage(item) } /> }
                     keyExtractor={ (item) => String(item.id) }
                 />
                
@@ -143,7 +146,7 @@ function Home(){
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
                     data={topMovies}
-                    renderItem={ ({ item }) =>  <SliderItem data={item} /> }
+                    renderItem={ ({ item }) =>  <SliderItem data={item} navigatePage={ () => navigateDetailsPage(item) } /> }
                     keyExtractor={ (item) => String(item.id) }
                 />
 
