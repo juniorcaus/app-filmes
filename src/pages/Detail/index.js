@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Container, Header, HeaderButton, Banner  } from './styles';
+import { Container, Header, HeaderButton, Banner, ButtonLink, Title, ContentArea, Rate, ListGenres  } from './styles';
 
 import { Feather, Ionicons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import api, { key } from '../../services/api';
+
+import Stars from 'react-native-stars';
+import Genres from "../../components/Genres";
 
 function Detail(){
     const navigation = useNavigation();
@@ -27,7 +30,7 @@ function Detail(){
 
             if(isActive){
                 setMovie(response.data);
-                console.log(response.data);
+                //console.log(response.data);
             }
 
         }
@@ -45,7 +48,7 @@ function Detail(){
     return(
         <Container>
             <Header>
-                <HeaderButton>
+                <HeaderButton activeOpacity={0.7} onPress={ () => navigation.goBack() } >
                     <Feather  
                         name="arrow-left"
                         size={28}
@@ -60,6 +63,40 @@ function Detail(){
                     />
                 </HeaderButton>
             </Header>
+
+            <Banner
+            resizeMethod="resize"
+            source={{ uri: `https://image.tmdb.org/t/p/original/${movie.poster_path}` }}
+
+            />
+
+            <ButtonLink>
+                <Feather name="link" size={24} color="#fff" />
+            </ButtonLink>
+
+            <Title numberOfLines={2} >{movie.title}</Title>
+
+            <ContentArea>
+                <Stars 
+                  default={movie.vote_average}  
+                  count={10}
+                  half={true}
+                  starSize={20}
+                  fullStar={ <Ionicons name="md-star" size={24} color="#E7A74E" /> }
+                  emptyStart={ <Ionicons name="md-star-outline" size={24} color="#E7A74E" /> }
+                  halfStar={ <Ionicons name="md-star-half" size={24} color="#E7A74E" /> }
+                  disable={true}
+                />
+                <Rate>{movie.vote_average} /10</Rate>
+            </ContentArea>
+
+            <ListGenres
+            data={movie?.genres}
+            horizontal={true}
+            shownsHorizontalScrollIndicator={false}
+            keyExtractor={ (item) => String(item.id) }
+            renderItem={ ({ item }) => <Genres data={item} /> }
+            />
 
 
         </Container>
