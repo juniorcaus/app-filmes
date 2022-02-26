@@ -91,7 +91,12 @@ function Home(){
     }
 
     function handleSearchMovie(){
-        console.log("VALOR DO INPUT: ", Input)
+
+        if(input === '') return;
+        
+
+        navigation.navigate('Search', { name: input } )
+        setInput('');
     }
 
 
