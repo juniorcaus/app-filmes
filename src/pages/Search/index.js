@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { Container, ListMovies } from './styles';
 
 import SearchItem from '../../components/SearchItem';
@@ -43,6 +43,10 @@ function Search(){
         }
 
     }, [] )
+
+    function navigationDetailsPage(item){
+        navigation.navigate('Detail', { id: item.id })
+    }
      
     if(loading){
         return(
@@ -57,7 +61,7 @@ function Search(){
            data={movie}
            showsVerticalScrollIndicator={false}
            keyExtractor={ (item) => String(item.id) }
-           renderItem={ ({ item }) => <SearchItem data={item} /> }
+           renderItem={ ({ item }) => <SearchItem data={item} navigationPage={ () => navigationDetailsPage(item) } /> }
            
            />
         </Container>
