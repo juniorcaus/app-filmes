@@ -56,7 +56,7 @@ function Detail(){
 
     }, [] )
 
-    async function favoriteMovie(movie){
+    async function handleFavoriteMovie(movie){
 
         if(favoritedMovie){
             await deleteMovie(movie.id);
@@ -81,7 +81,7 @@ function Detail(){
                     />
                 </HeaderButton>
 
-                <HeaderButton onPress={ () => favoriteMovie(movie) }>
+                <HeaderButton onPress={ () => handleFavoriteMovie(movie) }>
                     { favoritedMovie ? (
                         <Ionicons
                             name="bookmark"
